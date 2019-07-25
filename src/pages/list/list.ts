@@ -4,6 +4,7 @@ import { AdimaProvider } from '../../providers/adima/adima';
 import { AssociatePage } from '../associate/associate';
 import { SigninPage } from '../signin/signin';
 import { ProfilePage } from '../profile/profile';
+import { MakepaymentPage } from '../makepayment/makepayment';
 /**
  * Generated class for the ListPage page.
  *
@@ -22,19 +23,7 @@ export class ListPage {
   CurrentName;
   constructor(public navCtrl: NavController, public navParams: NavParams,public dima :AdimaProvider ) {
 
-    this.dima.checkAuthState().then(data => {
-      if (data == true) {
-        this.logInState = true;
-        this.dima.getProfile().then((data: any) => {
-          console.log(data)
-          this.img = data.downloadurl;
-        })
-      }
-      else if (data == false) {
-        this.img = "../../assets/download.png";
-        console.log(this.img)
-      }
-    });
+ 
 
   }
 
@@ -43,6 +32,9 @@ export class ListPage {
   }
   gotoAssociate(){
     this.navCtrl.push(AssociatePage)
+  }
+  payment(){
+    this.navCtrl.push(MakepaymentPage)
   }
 
   logOut() {

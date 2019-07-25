@@ -5,7 +5,7 @@
     </div>
     <div class="condiv">
       <p class="name">{{a.name}}</p>
-      <p>{{a.email}}</p>
+      <!-- <p>{{a.email}}</p> -->
     </div>
 
   </div>
@@ -24,12 +24,16 @@
 
     <div [ngSwitch]="pet">
       <ion-list *ngSwitchCase="'associate'">
-        <ion-item>
-          <ion-thumbnail item-start>
-          </ion-thumbnail>
-          <h2>Ruby</h2>
-        </ion-item>
-        ...
+          <div class="conMess">
+              <div *ngFor="let p of paymentArr" class="messDiv">
+                <div class="imgdi2v">
+                    <img src="{{p.Amount}}">
+                </div>
+                <div class="condivmess">
+                    <p class="p">{{p.name}}</p>
+                </div>
+              </div>
+            </div>
       </ion-list>
 
       <ion-list *ngSwitchCase="'inbox'">

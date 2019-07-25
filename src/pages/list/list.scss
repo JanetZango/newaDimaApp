@@ -1,5 +1,6 @@
 page-list {
     .div1{
+        background-image: url("../../assets/mpney.png");
         height:250px;
         width:300px;
         margin:20px;
@@ -44,6 +45,12 @@ page-list {
           height:50px;
           padding-left:10px;
           padding-top:10px;
+         
+          border:2px solid red;
+      }
+      button{
+        border:2px solid white;
+        // border-radius: 100%;
       }
   }
   .bottom{

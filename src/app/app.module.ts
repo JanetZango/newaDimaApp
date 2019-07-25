@@ -18,6 +18,8 @@ import { Stripe } from '@ionic-native/stripe';
 import { ProfilePage } from '../pages/profile/profile';
 import { FCM } from '@ionic-native/fcm';
 import { MakepaymentPage } from '../pages/makepayment/makepayment';
+import { PayPage } from '../pages/pay/pay';
+import { OnboardingPage } from '../pages/onboarding/onboarding';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { MakepaymentPage } from '../pages/makepayment/makepayment';
     AssociatePage,
     MakeRequestPage,
     MakepaymentPage,
-    ProfilePage
+    ProfilePage,
+    PayPage,
+    OnboardingPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { MakepaymentPage } from '../pages/makepayment/makepayment';
     AssociatePage,
     MakeRequestPage,
     ProfilePage,
-    MakepaymentPage
+    MakepaymentPage,
+    PayPage,
+    OnboardingPage
   ],
   providers: [
     StatusBar,

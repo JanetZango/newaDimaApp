@@ -20,6 +20,7 @@ declare var firebase;
 export class ProfilePage {
   arr = new Array();
   requestArr = new Array();
+  paymentArr = new Array();
   constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider) {
 
     let userID = firebase.auth().currentUser;

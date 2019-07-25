@@ -1,3 +1,44 @@
 page-onboarding {
+    .divImage{
+        text-align: center;
+        margin-top:-80px;
+        img{
+            height:240px;
+        }
+  
+    }
+    .divImage2{
+        text-align: center;
+        // margin-top:-80px;
+        img{
+            height:210px;
+        }
+  
+    }
+    h2{
+        font-size: 2em;
+        font-family: 'Roboto Slab', serif;
+        text-transform: capitalize;
+    }
+    p{
+       
+        padding:10px;
+    }
+    .btndiv{
 
+        text-align: center;
+        button{
+            border-radius: 100px;
+            width:60%;
+        }
+        
+
+        }
+        .contdiv{
+            margin-top:60px;
+        }
+        .contdiv2{
+            margin-top:66px;
+            // border:2px solid green;
+        }
 }

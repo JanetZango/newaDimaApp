@@ -1,6 +1,6 @@
 <ion-content>  
   <div class="top">
-    <img [src]="img" />
+    <!-- <img [src]="img" /> -->
      </div>
      <div class="bottom">
        <div class="div1" *ngFor="let a of displayuserArr">
@@ -8,7 +8,6 @@
               <img src="{{a.downloadurl}}">
           </div>
           <div class="condiv">
-              <!-- <p>{{a.email}}</p> -->
               <p>{{a.name}}</p>
               <div class="btndiv3">
                   <button ion-button (click)="gottoRequest(a.name)">Make payment</button>

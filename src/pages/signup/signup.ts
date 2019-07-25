@@ -25,7 +25,7 @@ export class SignupPage {
   }
 
   //registration method
-  SignUp(username,email,password) {
+  SignUp(email, password, username) {
     if(email == "" || password== "" || email == null || password == null  || username == "" || username == null){
       console.log('error')
     }

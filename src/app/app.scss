@@ -14,33 +14,33 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-myAlert {
+.myAlert {
   
-    color: #014C9F;
+    color: white;
     button {
-        color: #014C9F;
+        color: white;
       margin: 0 auto;
       text-transform: uppercase;
     }
     .alert-message {
-      color: #014C9F; // text color for confirm alerts
+      color: white; // text color for confirm alerts
     }
     .alert-wrapper, .alert-head {
       background-color: #014C9F;
       border-radius: 10px;
-      color: #014C9F;
+      color: white;
       animation: 0.7s bounceIn;
     }
     .alert-subTitle{
-      color: #014C9F;
+      color: white;
     }
   
     
   }
   .alert-md .alert-input {
         margin: 5px 0;
-        border-bottom: 1px solid #014C9F;
-        color: grey !important;
+        border-bottom: 1px solid white;
+        color: white !important;
     }
  .alert-md .alert-button .button-inner {
   
@@ -49,18 +49,18 @@ myAlert {
         overflow: hidden;
         font-weight: 500;
         text-transform: uppercase;
-        color: #014C9F !important;
+        color: white !important;
         background-color: transparent;
     
     }
     .loading-md .loading-wrapper {
         max-height: 13%;
         border-radius: 15px;
-        background-color: #014C9F;
+        background-color: white;
         color: #014C9F !important;
       }
       .loading-md .spinner-crescent circle {
-        stroke: #014C9F;
+        stroke: white;
     }
     .toast-md .toast-message {
         font-size: 1.5rem;

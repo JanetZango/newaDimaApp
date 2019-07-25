@@ -2,8 +2,9 @@
     <div>
       <div class="divImage">
         <img src="../../assets/logo.jpg">
-        <p>aDima</p>
+ 
       </div>
+      <p>aDima</p>
       <div class="theCard">
           <ion-input placeholder="Email" id="anim1" name="email" #email="ngModel" type="email" ngModel required></ion-input>
           <span style="color: red" *ngIf="!email.valid && email.touched" class="help-block">Please enter your email</span>
@@ -16,8 +17,8 @@
     </div>
     <div class="moveCont">
       <button class="btnSign" id="anim2" ion-button  (click)="SignIn(email.value,password.value)">SIGN IN</button>
-      <button ion-button clear id="forgotPassword" (click)="forgotpassword()">Forgot Password</button>
-      <button class="changebtn" ion-button clear (click)="gotoRegister()">You dont have an account?
+      <button ion-button clear id="forgotPassword" (click)="forgotpassword()">forgot password</button>
+      <button class="changebtn"  ion-button clear (click)="gotoRegister()">You dont have an account?
         &nbsp;<b>Sign Up</b>
       </button>
     </div>

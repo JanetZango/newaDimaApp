@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { SigninPage } from '../pages/signin/signin';
 import { MakeRequestPage } from '../pages/make-request/make-request';
+import { OnboardingPage } from '../pages/onboarding/onboarding';
 @Component({
   templateUrl: 'app.html'
 })
@@ -21,7 +22,7 @@ export class MyApp {
           this.rootPage = ListPage
         }
         else {
-          this.rootPage = SigninPage
+          this.rootPage = ListPage
         }
        })
       // Okay, so the platform is ready and our plugins are available.

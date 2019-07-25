@@ -69,23 +69,23 @@ export class PayPage {
       inputs: [
         {
           name: 'number',
-          placeholder: this.number
+          placeholder: 'Enter AccNO'
         },
         {
           name: 'expMonth',
-          placeholder: this.expMonth
+          placeholder: 'Exp Month'
         },
         {
           name: 'expYear',
-          placeholder: this.expYear
+          placeholder: 'Exp Year'
         },
         {
           name: 'cvc',
-          placeholder: this.cvc
+          placeholder: 'Cvc'
         },
         {
           name: 'Amount',
-          placeholder: this.Amount
+          placeholder: 'Enter Amount'
         },
       ],
 
@@ -112,17 +112,18 @@ export class PayPage {
                 console.log(token)
                 console.log(this.getProjectDetails)
                 console.log('Payment successful')
+                const alert = this.alertCtrl.create({
+                  cssClass: "myAlert",
+                  title: 'Confirmation',
+                  subTitle: "The Payment has been made",
+                  buttons: ['OK']
+                });
+                alert.present();
                 this.dima.updateStudent(data.Amount, token, this.key,this.key1,this.currentloggedinName).then((data) => {
                   console.log('updated')
                   console.log(this.key)
                   this.getProjectDetails.length = 0;
-                  const alert = this.alertCtrl.create({
-                    cssClass: "myAlert",
-                    title: 'Confirmation',
-                    subTitle: "The Payment has been made",
-                    buttons: ['OK']
-                  });
-                  alert.present();
+              
                 })
 
               })

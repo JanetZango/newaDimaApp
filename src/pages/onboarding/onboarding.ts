@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SigninPage } from '../signin/signin';
 
 /**
  * Generated class for the OnboardingPage page.
@@ -21,5 +22,7 @@ export class OnboardingPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OnboardingPage');
   }
-
+  gotoSignIn(){
+    this.navCtrl.push(SigninPage)
+  }
 }

@@ -1,5 +1,5 @@
-<ion-content>
-  <div>
+<ion-content class="content">
+
     <div >
         <div class="divImage">
             <img src="../../assets/logo.jpg">
@@ -14,20 +14,19 @@
 
           <ion-input placeholder="Password" type="password" class="user-input"name="password" #password="ngModel" id="anim1" ngModel required></ion-input>
           <span  class="help-block" style="color: red" *ngIf="!password.valid && password.touched">Please enter your password</span>
-<!-- 
-          <ion-input placeholder="Phone Number" type="number" class="user-input"name="password" #Pnumber="ngModel" id="anim4" ngModel required></ion-input>
-          <span  class="help-block" style="color: red" *ngIf="!Pnumber.valid && Pnumber.touched">Please enter your number</span> -->
+
+          <ion-input placeholder="Phone Number" type="number" class="user-input"name="password" #Pnumber="ngModel" id="anim1" ngModel required></ion-input>
+          <span  class="help-block" style="color: red" *ngIf="!Pnumber.valid && Pnumber.touched">Please enter your number</span>
       </div>
       <div class="moveCont">
-          <button ion-button  class="btnSign" id="anim2" (click)="SignUp(username.value,email.value,password.value)">SIGN UP</button>
+          <button ion-button  class="btnSign" id="anim2" (click)="SignUp(email.value, password.value, username.value)">SIGN UP</button>
       </div>
       <div class="moveCont2">
-          <button ion-button clear (click)="gotoSignin">Sign In</button>
+          <button ion-button clear (click)="gotoSignin()">Sign In</button>
       </div>
 
     </div>
 
-  </div>
 
 </ion-content>
 

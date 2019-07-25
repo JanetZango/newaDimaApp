@@ -85,6 +85,7 @@ export class AdimaProvider {
             console.log(obj)
             this.getusers.push(obj);
             console.log(this.getusers)
+
           }
         })
         accpt(this.getusers)
@@ -255,20 +256,23 @@ export class AdimaProvider {
   retriveRequest() {
     return new Promise((accept, reject) => {
       var user = firebase.auth().currentUser
+      console.log(user.uid)
       firebase.database().ref("Requests/" + user.uid).on('value', (data: any) => {
         let proDetails = data.val();
         console.log(proDetails)
         let keys2 = Object.keys(proDetails)
         console.log(keys2)
-        let obj = {
-          message:proDetails.message,
-          user:proDetails.user,
-          name:proDetails.name,
-          img:proDetails.img
+        for(var x = 0; x < keys2.length ; x++){
+          let obj = {
+            message:proDetails[keys2[x]].message,
+            user:proDetails[keys2[x]].user,
+            name:proDetails[keys2[x]].name,
+            img:proDetails[keys2[x]].img
+          }
+          console.log(obj)
+          this.getresquestArr.push(obj)
+          console.log(this.getresquestArr)
         }
-        console.log(obj)
-        this.getresquestArr.push(obj)
-        console.log(this.getresquestArr)
       })
       accept(this.getresquestArr)
     })
@@ -278,19 +282,23 @@ export class AdimaProvider {
     return new Promise((accept, reject) => {
       var user = firebase.auth().currentUser
       console.log(user.uid)
-      firebase.database().ref("PaymentMade").on('value', (data: any) => {
-        let proDetails = data.val();
-        console.log(proDetails)
-        let obj = {
-          Amount:proDetails.Amount,
-          user:proDetails.user,
-          name:proDetails.name,
-          img:proDetails.img,
-          id:proDetails.id
+      firebase.database().ref("PaymentMade/" + user.uid).on('value', (data: any) => {
+        let proDetails2 = data.val();
+        console.log(proDetails2)
+        let keys1 = Object.keys(proDetails2)
+        console.log(keys1)
+        for(var x = 0; x < keys1.length ; x++){
+          let obj = {
+            Amount:proDetails2[keys1[x]].Amount,
+            user:proDetails2[keys1[x]].user,
+            name:proDetails2[keys1[x]].name,
+            token:proDetails2[keys1[x]].token,
+          }
+          console.log(obj)
+          this.getresquestArr.push(obj)
+          console.log(this.getresquestArr)
         }
-        console.log(obj)
-        this.getresquestArr.push(obj)
-        console.log(this.getresquestArr)
+    
       })
       accept(this.getresquestArr)
     })
