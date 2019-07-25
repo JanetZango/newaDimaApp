@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "246207647956",
+    "firebase_url": "https://adimaapp.firebaseio.com",
+    "project_id": "adimaapp",
+    "storage_bucket": "adimaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246207647956:android:764d2cb7da3280eb",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246207647956-3sb2lfh3lomimqgi3872ldtpim0mfarn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6f_05fV4ycjZ035pwnicmnfMAo0qx_R4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246207647956-3sb2lfh3lomimqgi3872ldtpim0mfarn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
