@@ -29,8 +29,7 @@ page-signin {
         text-transform: capitalize;  
     }
     #anim1{
-
-        box-shadow: 1px  3px #014C9F;
+        box-shadow: 2px  3px #014C9F;
         border-radius: 100px;
         width:80%;  
         text-align: center;
@@ -59,6 +58,16 @@ page-signin {
     }
    .theCard{
        text-align: center;
+   }
+   .content{
+    //   background-image: url('../../assets/logo.jpg');
+
+    //  background-image: linear-gradient(#f4f4f4cd, rgb(243, 243, 243)), url('../../assets/logo.jpg');
+
+      background-size:cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    //   height:50%;
    }
 
 

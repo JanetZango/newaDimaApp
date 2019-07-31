@@ -119,7 +119,7 @@ export class PayPage {
                   buttons: ['OK']
                 });
                 alert.present();
-                this.dima.updateStudent(data.Amount, token, this.key,this.key1,this.currentloggedinName).then((data) => {
+                this.dima.updateStudent(data.Amount, token, this.key,this.key1,this.currentloggedinName,this.img).then((data) => {
                   console.log('updated')
                   console.log(this.key)
                   this.getProjectDetails.length = 0;

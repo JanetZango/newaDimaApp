@@ -17,10 +17,10 @@ export class AdimaProvider {
   stayLoggedIn;
   name;
   getusers = new Array();
-   getresquestArr = new Array();
-
-
-  constructor(public ngzone: NgZone, public loadingCtrl: LoadingController, public alertCtrl: AlertController,private fcm: FCM) {
+  getresquestArr = new Array();
+  getpaymentArr = new Array();
+  getaddedRequests = new Array();
+  constructor(public ngzone: NgZone, public loadingCtrl: LoadingController, public alertCtrl: AlertController, private fcm: FCM) {
     console.log('Hello ADimaProvider Provider');
   }
 
@@ -94,16 +94,17 @@ export class AdimaProvider {
   }
 
 
-  
-  updateStudent(Amount, token, id,user,name) {
+
+  updateStudent(Amount, token, id, user, name, downloadurl) {
     console.log(id)
     return new Promise((accpt, rej) => {
       console.log(id)
       firebase.database().ref("PaymentMade/" + id).set({
         Amount: Amount,
         token: token,
-        user:user,
-        name:name,
+        user: user,
+        name: name,
+        downloadurl: downloadurl
       })
     })
   }
@@ -124,6 +125,73 @@ export class AdimaProvider {
           console.log(obj)
           accpt(obj)
         })
+      })
+    })
+  }
+
+  addRequestFunding(id, Amount, purpose, PO_no, downloadurl,name) {
+    console.log(id)
+    return new Promise((accpt, rej) => {
+      console.log(id)
+      firebase.database().ref("AddRequestFundings/" + id).set({
+        Amount: Amount,
+        purpose: purpose,
+        PO_no: PO_no,
+        downloadurl: downloadurl,
+        name:name,
+        offer: 0,
+        balance: 0
+      })
+    })
+  }
+
+
+
+  retrieveAddedRequest() {
+    return new Promise((accpt, rej) => {
+      var user = firebase.currentUser;
+      firebase.database().ref("AddRequestFundings").on("value", (data) => {
+        let requestDetails = data.val();
+        console.log(requestDetails)
+        let keys1 = Object.keys(requestDetails)
+        console.log(keys1)
+        for (var x = 0; x < keys1.length; x++) {
+          let obj = {
+            Amount: requestDetails[keys1[x]].Amount,
+            PO_no: requestDetails[keys1[x]].PO_no,
+            balance: requestDetails[keys1[x]].balance,
+            downloadurl: requestDetails[keys1[x]].downloadurl,
+            offer: requestDetails[keys1[x]].offer,
+            purpose: requestDetails[keys1[x]].purpose,
+            name: requestDetails[keys1[x]].name,
+            key:keys1[x]
+          }
+          console.log(obj)
+          this.getaddedRequests.push(obj)
+          console.log(this.getaddedRequests)
+        }
+         accpt(this.getaddedRequests)
+      })
+    })
+  }
+
+  makeOffer(id, offer, terms,balance) {
+    console.log(id)
+    return new Promise((accpt, rej) => {
+      console.log(id)
+      firebase.database().ref("AddRequestFundings/" + id).update({
+        offer: offer,
+        terms: terms,
+        balance:balance
+      })
+    })
+  }
+
+  storeAaccetedRequest(id,name){
+    return new Promise((accpt, rej) => {
+      firebase.database().ref("AcceptedRequest/" + id).set({
+       accept:"accepted",
+       name:name
       })
     })
   }
@@ -175,6 +243,11 @@ export class AdimaProvider {
           }).catch(function (error) {
             // An error happened.
           });
+          //   user.verifyPhoneNumberWithCode().then(function () {
+          //   // Email sent.
+          // }).catch(function (error) {
+          //   // An error happened.
+          // });
           resolve();
           loading.dismiss();
         }).catch((error) => {
@@ -197,6 +270,10 @@ export class AdimaProvider {
       })
     })
   }
+
+
+
+
 
 
   //forgot paswword
@@ -227,14 +304,14 @@ export class AdimaProvider {
     })
   }
 
-  requestSent(key, user, name,img) {
+  requestSent(key, user, name, img) {
     return new Promise((resolve, reject) => {
       // var user = firebase.auth().currentUser
       firebase.database().ref("Requests/" + key).push({
         message: "they have sent you a request",
         name: name,
         user: user,
-        img:img
+        img: img
       })
     })
   }
@@ -262,12 +339,12 @@ export class AdimaProvider {
         console.log(proDetails)
         let keys2 = Object.keys(proDetails)
         console.log(keys2)
-        for(var x = 0; x < keys2.length ; x++){
+        for (var x = 0; x < keys2.length; x++) {
           let obj = {
-            message:proDetails[keys2[x]].message,
-            user:proDetails[keys2[x]].user,
-            name:proDetails[keys2[x]].name,
-            img:proDetails[keys2[x]].img
+            message: proDetails[keys2[x]].message,
+            user: proDetails[keys2[x]].user,
+            name: proDetails[keys2[x]].name,
+            img: proDetails[keys2[x]].img
           }
           console.log(obj)
           this.getresquestArr.push(obj)
@@ -285,48 +362,58 @@ export class AdimaProvider {
       firebase.database().ref("PaymentMade/" + user.uid).on('value', (data: any) => {
         let proDetails2 = data.val();
         console.log(proDetails2)
-        let keys1 = Object.keys(proDetails2)
-        console.log(keys1)
-        for(var x = 0; x < keys1.length ; x++){
-          let obj = {
-            Amount:proDetails2[keys1[x]].Amount,
-            user:proDetails2[keys1[x]].user,
-            name:proDetails2[keys1[x]].name,
-            token:proDetails2[keys1[x]].token,
-          }
-          console.log(obj)
-          this.getresquestArr.push(obj)
-          console.log(this.getresquestArr)
+        let obj = {
+          Amount: proDetails2.Amount,
+          name: proDetails2.name,
+          token: proDetails2.token,
+          downloadurl: proDetails2.downloadurl
         }
-    
+        console.log(obj)
+        this.getpaymentArr.push(obj)
+        console.log(this.getpaymentArr)
+
       })
-      accept(this.getresquestArr)
+      accept(this.getpaymentArr)
     })
   }
 
 
-  
-  async getToken(){
+
+  async getToken() {
     this.fcm.getToken().then(token => {
-          console.log(token);
-          // alert(token)
-           var uid =  firebase.auth().currentUser.uid;
-        firebase.database().ref('App_Users/' + uid ).update({
-          token:token,
-          email: 'user',
-          uid: uid
-        })
-        },(err)=>{
-          console.log(err);
-          // alert(err)
-        });
-        this.fcm.onTokenRefresh().subscribe(token => {
-          console.log(token);
-          // alert(token)
-        },(err) =>{
-          console.log(err);
-          // alert(err)
-        });  
+      console.log(token);
+      // alert(token)
+      var uid = firebase.auth().currentUser.uid;
+      firebase.database().ref('App_Users/' + uid).update({
+        token: token,
+        uid: uid
+      })
+
+    }, (err) => {
+      console.log(err);
+      // alert(err)
+    });
+    this.fcm.onTokenRefresh().subscribe(token => {
+      console.log(token);
+      // alert(token)
+    }, (err) => {
+      console.log(err);
+      // alert(err)
+    });
+  }
+
+
+  RemoveUploadedPicture(key) {
+    console.log(key)
+    console.log(user)
+    var user = firebase.auth().currentUser
+    console.log(user.uid)
+    return new Promise((accpt, rej) => {
+      this.ngzone.run(() => {
+        firebase.database().ref("Requests/" + user.uid + "/" + key).remove();
+        accpt("student deleted");
+      });
+    });
   }
 
 }

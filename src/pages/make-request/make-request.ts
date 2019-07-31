@@ -6,6 +6,8 @@ import { LoadingController } from "ionic-angular";
 import { AlertController } from "ionic-angular";
 import { AssociatePage } from '../associate/associate';
 import { ToastController } from 'ionic-angular';
+// import { HttpClient } from '@angular/common/http/';
+// import { HttpHeaders } from '@angular/common/http';
 /**
  * Generated class for the MakeRequestPage page.
  *
@@ -35,6 +37,11 @@ export class MakeRequestPage {
   key;
   key1;
   img;
+  balance;
+  downloadurl;
+  offer;
+  purpose;
+  PO_no ;
   // number: '4242424242424242',
   // expMonth: 12,
   // expYear: 2020,
@@ -43,10 +50,13 @@ export class MakeRequestPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider, private stripe: Stripe, public alertCtrl: AlertController, public toastCtrl: ToastController) {
     this.makeRequest.push(this.navParams.get('orgObject'));
     console.log(this.makeRequest);
-    this.name = this.makeRequest[0].name;
-    this.email = this.makeRequest[0].email;
-    this.key = this.makeRequest[0].id
-    console.log(this.name, this.email, this.key)
+    this.Amount = this.makeRequest[0].Amount;
+    this.PO_no = this.makeRequest[0].PO_no;
+    this.balance = this.makeRequest[0].balance
+    this.downloadurl = this.makeRequest[0].downloadurl
+    this.purpose = this.makeRequest[0].purpose
+    this.offer = this.makeRequest[0].offer
+    console.log(this.Amount, this.offer, this.purpose)
 
 
 
@@ -67,19 +77,39 @@ export class MakeRequestPage {
 
   SendRequest() {
         this.dima.getToken().then((data)=>{
-          console.log(data)
+          this.navCtrl.push(AssociatePage)
+          const toast = this.toastCtrl.create({
+            message: 'The Request was sent',
+            duration: 3000
+          });
+          toast.present();
           this.dima.requestSent(this.key, this.key1, this.currentloggedinName,this.img).then((data) => {
-            console.log(data)
-            console.log(this.key1)
-            console.log(this.key)
-            this.navCtrl.push(AssociatePage)
-            const toast = this.toastCtrl.create({
-              message: 'The Request was sent',
-              duration: 3000
-            });
-            toast.present();
+      
           })
         })
+
+
+  //       let body = {
+  //   "notification":{
+  //     "title":"New Notification has arrived",
+  //     "body":"Notification Body",
+  //     "sound":"default",
+  //     "click_action":"FCM_PLUGIN_ACTIVITY",
+  //     "icon":"fcm_push_icon"
+  //   },
+  //   "data":{
+  //     "param1":"value1",
+  //     "param2":"value2"
+  //   },
+  //     "to":"/topics/all",
+  //     "priority":"high",
+  //     "restricted_package_name":"io.ionic.starter"
+  // }
+  // let options = new HttpHeaders().set('Content-Type','application/json');
+  // this.http.post("https://fcm.googleapis.com/fcm/send",body,{
+  //   headers: options.set('Authorization', 'key=er8mU8DRfbM:APA91bFpLaFnOXGA2cJdiQJHWhjCXL5YG6RdkAWBTlmjaqV7wemsLOHepxKSjjdRtXyTtPNYFiawvIjX3ROStpHTEUIXDtD54xqyku9Bh_mww4pSaWTv170jTcyUPisUvQO9syJvaf0r'),
+  // })
+  //   .subscribe();
   
   }
 

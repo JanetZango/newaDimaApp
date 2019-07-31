@@ -11,46 +11,79 @@
   </div>
   <div>
     <div padding>
-      <ion-segment [(ngModel)]="pet">
-        <ion-segment-button value="inbox">
-          Inbox Request
+      <ion-segment [(ngModel)]="request">
+        <ion-segment-button value="inbox" ngSelected="selected">
+          Inbox 
         </ion-segment-button>
         <ion-segment-button value="associate">
-          Associate Payment
+          Payment
         </ion-segment-button>
+        <ion-segment-button value="accepted">
+          Accepted requests
+          </ion-segment-button>
       </ion-segment>
     </div>
 
 
-    <div [ngSwitch]="pet">
+    <div [ngSwitch]="request">
       <ion-list *ngSwitchCase="'associate'">
           <div class="conMess">
-              <div *ngFor="let p of paymentArr" class="messDiv">
+              <ion-card *ngFor="let p of paymentArr" class="messDiv">
                 <div class="imgdi2v">
-                    <img src="{{p.Amount}}">
+                  <img src="{{p.downloadurl}}">
                 </div>
                 <div class="condivmess">
-                    <p class="p">{{p.name}}</p>
+                    Name:<p class="p">{{p.name}}</p>
+                    Payment Amt:<p class="p">{{p.Amount}}</p>
                 </div>
-              </div>
+               
+              </ion-card>
             </div>
       </ion-list>
 
       <ion-list *ngSwitchCase="'inbox'">
         <div class="conMess">
-          <div *ngFor="let x of requestArr" class="messDiv">
+          <ion-card *ngFor="let x of requestArr;let p = index" class="messDiv">
             <div class="imgdi2v">
                 <img src="{{x.img}}">
             </div>
             <div class="condivmess">
                 <p class="p">{{x.name}}</p>
                 <p class="p">{{x.message}}</p>
+                <button ion-button (click)="acceptedReq(x.user)">Accept</button>
+                <button ion-button (click)="removeImage(x.user)">Reject</button>
             </div>
-          </div>
+          
+          </ion-card>
         </div>
       </ion-list>
+
+
+      <ion-list *ngSwitchCase="'accepted'">
+          <div class="conMess">
+            <ion-card *ngFor="let x of requestArr" class="messDiv">
+              <div class="imgdi2v">
+                  <img src="{{x.img}}">
+              </div>
+              <div class="condivmess">
+                  <p class="p">{{x.name}}</p>
+                  <p class="p">{{x.message}}</p>
+                  <button ion-button>Accept</button>
+                  <button ion-button>Reject</button>
+              </div>
+            
+            </ion-card>
+          </div>
+        </ion-list>
     </div>
 
+
+    <ion-fab top right (click)="logOut()">
+      <button ion-fab mini>
+        <ion-icon ios="ios-lock" md="md-lock"></ion-icon>
+              
+      </button>
+    </ion-fab>
   </div>
 
 </ion-content>

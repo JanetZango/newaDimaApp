@@ -1,16 +1,24 @@
 <ion-content>
-  <div class="top">
-    <!-- <img [src]="img" /> -->
-  </div>
+  <!-- <div class="top">
+  
+  </div> -->
   <div class="maindiv">
     <div class="divImage">
-      <img src="../../assets/PSRP-Meeting.jpg">
+      <img src="{{downloadurl}}">
     </div>
-    <b>From:</b>
-    <p>{{currentloggedinName}}</p>
-    <b>To:</b>
-    <p>{{name}}</p>
-    <button ion-button (click)="SendRequest()">Make Request</button>
+ 
+    <b>Purpose:</b>
+    <p>{{purpose}}</p>
+    <b>Amount::</b>
+    <p>{{Amount}}</p>
+    <b>PO_no::</b>
+    <p>{{PO_no}}</p>
+    <b>Balance::</b>
+    <p>{{balance}}</p>
+    <b>Offer:</b>
+    <p>{{offer}}</p>
+
+    <a href="www.google.com"></a>
   </div>
 
 </ion-content>

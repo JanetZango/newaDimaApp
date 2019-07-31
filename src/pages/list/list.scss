@@ -1,12 +1,18 @@
 page-list {
     .div1{
-        background-image: url("../../assets/mpney.png");
         height:250px;
         width:300px;
         margin:20px;
         text-align: center;
+        // border:2px solid red;
         box-shadow: 2px 15px 20px -15px rgb(53, 53, 53);
         border-radius: 10px;
+        background-color: white;
+        object-fit: cover;
+        background-size: cover;
+        // background-image: linear-gradient(#f4f4f4ad, rgba(243, 243, 243, 0.387)), url('../../assets/mpney.png');
+ 
+
         img{
             height:150px;
             padding-left:10px;
@@ -18,9 +24,11 @@ page-list {
       height:250px;
       margin:20px;
       width:300px;
+      background-color: white;
       box-shadow: 2px 15px 20px -15px rgb(53, 53, 53);
       border-radius: 10px;
       text-align: center;
+    //   position: relative;
       img{
           height:140px;
           padding-left:10px;
@@ -30,6 +38,8 @@ page-list {
   }
   .maindiv{
       margin:10px;
+      margin-top:-120px;
+      z-index:10
   }
   .card-title{
       text-align: center;
@@ -39,8 +49,11 @@ page-list {
   }
   .top{
       background-color: #014C9F;
-      height:10%;
+      height:30%;
       width:100%;
+      z-index:1;
+    //   border-bottom-right-radius: 10px;
+    //   border-bottom-left-radius: 10px;
       img{
           height:50px;
           padding-left:10px;
@@ -56,6 +69,11 @@ page-list {
   .bottom{
     height:90%;
     width:100%;
+    z-index:1;
+  }
+
+  button{
+      background-color: #014C9F;
   }
 
   }

@@ -4,6 +4,9 @@ import { AdimaProvider } from '../../providers/adima/adima';
 import { LoadingController } from "ionic-angular";
 import { AlertController } from "ionic-angular";
 import { SigninPage } from '../signin/signin';
+
+
+import firebase from 'firebase';
 /**
  * Generated class for the SignUpPage page.
  *
@@ -16,13 +19,16 @@ import { SigninPage } from '../signin/signin';
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
-export class SignupPage {
+export default class SignupPage {
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public adima :AdimaProvider,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
   }
+  public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignUpPage');
-  }
+
+
+  ionViewDidLoad() { this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container'); }
 
   //registration method
   SignUp(email, password, username) {
@@ -52,6 +58,22 @@ export class SignupPage {
     }
   }
 
+  signIn(Pnumber: number){
+  
+    const appVerifier = this.recaptchaVerifier;
+    const phoneNumberString = "+27" + Pnumber;
+  
+    firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)
+      .then( confirmationResult => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+    })
+    .catch(function (error) {
+      console.error("SMS not sent", error);
+    });
+  
+  }
+  
   gotoSignin(){
     this.navCtrl.push(SigninPage)
   }

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AdimaProvider } from '../../providers/adima/adima';
-
+import { LoadingController } from "ionic-angular";
+import { AlertController } from "ionic-angular";
+import { SigninPage } from '../signin/signin';
 
 
 declare var firebase;
@@ -21,31 +23,101 @@ export class ProfilePage {
   arr = new Array();
   requestArr = new Array();
   paymentArr = new Array();
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider) {
+  uid;
+  user;
+  request = "inbox";
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
     let userID = firebase.auth().currentUser;
     firebase.database().ref("App_Users/" + userID.uid).on('value', (data: any) => {
       let details = data.val();
       console.log(data.val());
       this.arr.push(details);
+
       console.log(this.arr)
     });
 
-    this.dima.retriveRequest().then((data:any) => {
-      this.requestArr = data
-      console.log(this.requestArr)
+    this.dima.retriveRequest().then((data) => {
+      // this.requestArr = data;
+      console.log(this.requestArr)     
+      console.log(data)
+
+
+      let keys1 = Object.keys(data)
+      console.log(keys1)
+      for(var p =0; p < keys1.length; p++){
+        var k = keys1[p];
+       let obj ={
+         name:data[k].name,
+         user:data[k].user
+       }
+       console.log(obj)
+      }
     })
 
-    this.dima.retrivePayment().then((data:any) => {
-      this.requestArr = data
-      console.log(this.requestArr)
-    })
 
 
+
+  }
+
+  acceptedReq(user) {
+    for (var x = 0; x < this.requestArr.length; x++) {
+      if (user == this.requestArr[x].user) {
+        this.dima.storeAaccetedRequest(user,name).then((data) => {
+          console.log(data)
+        })
+        break;
+      }
+    }
   }
 
   ionViewDidLoad() {
+    this.dima.retrivePayment().then((data: any) => {
+      this.paymentArr = data
+      console.log(this.paymentArr)
+    })
     console.log('ionViewDidLoad ProfilePage');
   }
+
+
+
+  logOut() {
+    this.dima.logout().then(() => {
+      this.navCtrl.push(SigninPage, { out: 'logout' });
+    }, (error) => {
+      console.log(error.message);
+    })
+  }
+
+  removeImage(key) {
+    console.log(key);
+    const confirm = this.alertCtrl.create({
+      title: 'Confirm',
+      message: 'Are you sure you want to delete this student?',
+      cssClass: "myAlert",
+      buttons: [
+        {
+          text: 'Delete',
+          handler: () => {
+            this.dima.RemoveUploadedPicture(key);
+
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+
+
+
+
+
+
 
 }

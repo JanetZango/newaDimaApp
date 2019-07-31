@@ -5,7 +5,7 @@ import { LoadingController } from "ionic-angular";
 import { AlertController } from "ionic-angular";
 import { HomePage } from '../home/home';
 import { ListPage } from '../list/list';
-import { SignupPage } from '../signup/signup';
+import SignupPage from '../signup/signup';
 
 declare var firebase;
 /**

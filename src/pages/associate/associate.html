@@ -1,21 +1,24 @@
-<ion-content>  
+<ion-content>
   <div class="top">
     <!-- <img [src]="img" /> -->
-     </div>
-     <div class="bottom">
-       <div class="div1" *ngFor="let a of displayuserArr">
-          <div class="imgdiv">
-              <img src="{{a.downloadurl}}">
-          </div>
-          <div class="condiv">
-              <!-- <p>{{a.email}}</p> -->
-              <p>{{a.name}}</p>
-              <div class="btndiv3">
-                  <button ion-button (click)="gottoRequest(a.name)">Request</button>
-              </div>
-      
-          </div>
-       </div>
-     </div>
+  </div>
+  <div class="bottom">
+    <div class="infor" *ngFor="let a of displayuserArr">
+      <div class="img">
+        <img src="{{a.downloadurl}}">
+      </div>
+      <div class="details">
+        <p><b>Name:</b>{{a.name}}</p> 
+        <p><b>PO_no:</b>{{a.PO_no}}</p>
+        <p><b>Amount:</b>{{a.Amount}}</p>
+        <p><b>offer:</b>{{a.offer}}</p>
+        <p><b>balance:</b>{{a.balance}}</p>
+      </div>
+      <div class="btndiv3">
+          <button ion-button (click)="gotoOffer(a.name)">Make offer</button>
+        <button ion-button clear (click)="gottoRequest(a.name)">View More</button>
+    </div>
+    </div>
+  </div>
 
 </ion-content>

@@ -30,6 +30,8 @@
     "cordova-plugin-fcm-with-dependecy-updated": "2.4.0",
     "cordova-plugin-stripe": "^1.5.3",
     "fcm": "^1.0.3",
+    "firebase": "^6.3.2",
+    "g": "^2.0.1",
     "ionic-angular": "3.9.5",
     "ionicons": "3.0.0",
     "node-sass": "^4.12.0",

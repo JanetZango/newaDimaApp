@@ -18,13 +18,14 @@
           <ion-input placeholder="Phone Number" type="number" class="user-input"name="password" #Pnumber="ngModel" id="anim1" ngModel required></ion-input>
           <span  class="help-block" style="color: red" *ngIf="!Pnumber.valid && Pnumber.touched">Please enter your number</span>
       </div>
-      <div class="moveCont">
+      <!-- <div class="moveCont">
           <button ion-button  class="btnSign" id="anim2" (click)="SignUp(email.value, password.value, username.value)">SIGN UP</button>
-      </div>
-      <div class="moveCont2">
-          <button ion-button clear (click)="gotoSignin()">Sign In</button>
-      </div>
-
+  
+      </div> -->
+      <!-- <div class="moveCont2">
+          <button ion-button clear (click)="gotoSignin(Pnumber.value)">Sign In</button>
+      </div> -->
+      <button (click)="signIn(Pnumber.value)">signIn</button>
     </div>
 
 

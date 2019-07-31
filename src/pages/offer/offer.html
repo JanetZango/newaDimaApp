@@ -1,0 +1,20 @@
+<ion-content>
+  <h3>whats your offer?</h3>
+  <div  class="container">
+      <ion-item id="item">
+        <ion-label>Terms of</ion-label>
+        <ion-select [(ngModel)]="terms">
+          <ion-option value="good">good</ion-option>
+          <ion-option value="kids">kids</ion-option>
+          <ion-option value="hospital">hospital</ion-option>
+          <ion-option value="clinic">clinic</ion-option>
+        </ion-select>
+      </ion-item>
+  <ion-input class="input" placeholder="Enter Offer amount" type="number" [(ngModel)]="offerAmount"></ion-input>
+
+  </div>
+
+  <div class="contentdiv">
+    <button ion-button (click)="makeoffer()">Done</button>
+  </div>
+</ion-content>

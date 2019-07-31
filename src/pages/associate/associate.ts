@@ -4,6 +4,7 @@ import { AdimaProvider } from '../../providers/adima/adima';
 import { LoadingController } from "ionic-angular";
 import { AlertController } from "ionic-angular";
 import { MakeRequestPage } from '../make-request/make-request';
+import { OfferPage } from '../offer/offer';
 /**
  * Generated class for the AssociatePage page.
  *
@@ -23,8 +24,8 @@ export class AssociatePage {
   //variables;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider) {
-    this.dima.getAllUsers().then((data: any) => {
-      this.displayuserArr = data
+    this.dima.retrieveAddedRequest().then((data: any) => {
+      this.displayuserArr = data;
       console.log(this.displayuserArr)
     })
 
@@ -33,14 +34,22 @@ export class AssociatePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AssociatePage');
   }
-  gottoRequest(name){
-       // console.log(this.orgArray)
-       for (var x = 0; x < this.displayuserArr.length; x++) {
-        if (name == this.displayuserArr[x].name) {
-          this.navCtrl.push(MakeRequestPage, { orgObject: this.displayuserArr[x] });
-          break;
-        }
+  gottoRequest(name) {
+    for (var x = 0; x < this.displayuserArr.length; x++) {
+      if (name == this.displayuserArr[x].name) {
+        this.navCtrl.push(MakeRequestPage, { orgObject: this.displayuserArr[x] });
+        break;
       }
+    }
+  }
+
+  gotoOffer(name) {
+    for (var x = 0; x < this.displayuserArr.length; x++) {
+      if (name == this.displayuserArr[x].name) {
+        this.navCtrl.push(OfferPage, { offerObject: this.displayuserArr[x] });
+        break;
+      }
+    }
   }
 }
 
