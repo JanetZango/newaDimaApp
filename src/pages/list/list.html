@@ -5,11 +5,11 @@
   <div class="bottom">
     <div class="maindiv">
       <div class="div1" (click)="payment()">
-      <img src="../../assets/mpney.png"> 
+      <img src="../../assets/money 3.png"> 
         <p class="card-title">Peer to Peer</p> 
       </div>
       <div class="div2" (click)="gotoAssociate()">
-        <img src="../../assets/PSRP-Meeting.jpg">
+        <img src="../../assets/find5.png">
         <p class="card-title">Market Place</p>
       </div>
     </div>
@@ -17,8 +17,9 @@
   <ion-fab right bottom>
       <button ion-fab color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
       <ion-fab-list side="left">
-        <button ion-fab color="primary" (click)="profile()"><ion-icon ios="ios-person" md="md-person"></ion-icon></button>
+        <button ion-fab color="primary" (click)="profile(name)"><ion-icon ios="ios-person" md="md-person"></ion-icon></button>
         <button ion-fab color="primary" (click)="addRequest()"><ion-icon ios="ios-add" md="md-add"></ion-icon> </button>
+        <button ion-fab color="primary" (click)="showcontact()"><ion-icon ios="ios-contacts" md="md-contacts"></ion-icon></button>
       </ion-fab-list>
     </ion-fab>
 </ion-content>

@@ -1,0 +1,26 @@
+page-choose {
+    .divImage{
+        text-align: center;
+        margin-top:20%;
+        img{
+            height:200px;
+        }
+   
+    }
+    h2{
+        text-align: center;
+        color:red;
+    }
+    .btnDiv{
+        // border:2px solid red;
+        text-align: center;
+        height:30%;
+        margin-top:10%;
+        // margin:20px auto;
+        button{
+            // text-transform: capitalize;
+            border-radius: 100px;
+            margin:10px auto;
+        }
+    }
+}

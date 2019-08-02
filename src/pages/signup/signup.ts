@@ -21,14 +21,15 @@ import firebase from 'firebase';
 })
 export default class SignupPage {
 
-
   constructor(public navCtrl: NavController, public navParams: NavParams,public adima :AdimaProvider,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
   }
-  public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
 
 
-  ionViewDidLoad() { this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container'); }
+
+  ionViewDidLoad() { 
+    
+  }
 
   //registration method
   SignUp(email, password, username) {
@@ -58,21 +59,7 @@ export default class SignupPage {
     }
   }
 
-  signIn(Pnumber: number){
-  
-    const appVerifier = this.recaptchaVerifier;
-    const phoneNumberString = "+27" + Pnumber;
-  
-    firebase.auth().signInWithPhoneNumber(phoneNumberString, appVerifier)
-      .then( confirmationResult => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-    })
-    .catch(function (error) {
-      console.error("SMS not sent", error);
-    });
-  
-  }
+ 
   
   gotoSignin(){
     this.navCtrl.push(SigninPage)

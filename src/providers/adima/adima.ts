@@ -20,6 +20,10 @@ export class AdimaProvider {
   getresquestArr = new Array();
   getpaymentArr = new Array();
   getaddedRequests = new Array();
+  RegisteredPeople = new Array();
+  Amount;
+  offer;
+  outstanding;
   constructor(public ngzone: NgZone, public loadingCtrl: LoadingController, public alertCtrl: AlertController, private fcm: FCM) {
     console.log('Hello ADimaProvider Provider');
   }
@@ -129,16 +133,39 @@ export class AdimaProvider {
     })
   }
 
-  addRequestFunding(id, Amount, purpose, PO_no, downloadurl,name) {
+
+  getAllRegisteredPeople() {
+    return new Promise((accpt, rej) => {
+      this.ngzone.run(() => {
+        var user = firebase.auth().currentUser
+        firebase.database().ref("App_Users").on('value', (data: any) => {
+          var details = data.val();
+          console.log(details)
+          let keys = Object.keys(details)
+          console.log(keys)
+          for(var x =0 ; x <keys.length;x++){
+            let obj = {
+              phoneNumber: details[keys[x]].phoneNumber
+            }
+            this.RegisteredPeople.push(obj)
+            console.log(this.RegisteredPeople)
+          }
+          accpt(this.RegisteredPeople)
+        })
+      })
+    })
+  }
+
+  addRequestFunding(id, Amount, purpose, PO_no, downloadurl, name) {
     console.log(id)
     return new Promise((accpt, rej) => {
       console.log(id)
-      firebase.database().ref("AddRequestFundings/" + id).set({
+      firebase.database().ref("AddRequestFundings/" + id).push({
         Amount: Amount,
         purpose: purpose,
         PO_no: PO_no,
         downloadurl: downloadurl,
-        name:name,
+        name: name,
         offer: 0,
         balance: 0
       })
@@ -155,43 +182,60 @@ export class AdimaProvider {
         console.log(requestDetails)
         let keys1 = Object.keys(requestDetails)
         console.log(keys1)
+        // if (this.Amount >= this.outstanding) {
+        //   var balance = this.Amount - this.offer
+        // }
         for (var x = 0; x < keys1.length; x++) {
-          let obj = {
-            Amount: requestDetails[keys1[x]].Amount,
-            PO_no: requestDetails[keys1[x]].PO_no,
-            balance: requestDetails[keys1[x]].balance,
-            downloadurl: requestDetails[keys1[x]].downloadurl,
-            offer: requestDetails[keys1[x]].offer,
-            purpose: requestDetails[keys1[x]].purpose,
-            name: requestDetails[keys1[x]].name,
-            key:keys1[x]
-          }
-          console.log(obj)
-          this.getaddedRequests.push(obj)
-          console.log(this.getaddedRequests)
+          firebase.database().ref("AddRequestFundings/" + keys1[x]).on("value", (data2) => {
+            let requestDetails2 = data2.val();
+            console.log(requestDetails2)
+            let keys2 = Object.keys(requestDetails2)
+            console.log(keys2)
+            for (var z = 0; z < keys2.length; z++) {
+              let obj = {
+                Amount: requestDetails2[keys2[z]].Amount,
+                PO_no: requestDetails2[keys2[z]].PO_no,
+                balance: requestDetails2[keys2[z]].balance,
+                downloadurl: requestDetails2[keys2[z]].downloadurl,
+                offer: requestDetails2[keys2[z]].offer,
+                purpose: requestDetails2[keys2[z]].purpose,
+                name: requestDetails2[keys2[z]].name,
+                key: keys2[z]
+              }
+              console.log(obj)
+              this.getaddedRequests.push(obj)
+              console.log(this.getaddedRequests)
+            }
+         
+
+          })
+          accpt(this.getaddedRequests)
+
         }
-         accpt(this.getaddedRequests)
       })
     })
   }
 
-  makeOffer(id, offer, terms,balance) {
+  makeOffer(id, offer, terms, balance) {
     console.log(id)
     return new Promise((accpt, rej) => {
       console.log(id)
       firebase.database().ref("AddRequestFundings/" + id).update({
         offer: offer,
         terms: terms,
-        balance:balance
+        balance: balance
       })
     })
   }
 
-  storeAaccetedRequest(id,name){
+  storeAaccetedRequest(key) {
+    let user = firebase.auth().currentUser
     return new Promise((accpt, rej) => {
-      firebase.database().ref("AcceptedRequest/" + id).set({
-       accept:"accepted",
-       name:name
+      console.log(user.uid)
+      console.log(key)
+      firebase.database().ref("AcceptedRequests/" + user.uid + "/" + key).set({
+        accept: "accepted",
+        key: key
       })
     })
   }
@@ -217,6 +261,19 @@ export class AdimaProvider {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
 
+
+
+  signupPhone(number) {
+    return new Promise((resolve, reject) => {
+      firebase.auth().createUserWithPhoneNumber(number).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+      });
+    })
+  }
+
   //registration
   Signup(email, password, name) {
     return new Promise((resolve, reject) => {
@@ -233,9 +290,7 @@ export class AdimaProvider {
             name: name,
             email: email,
             downloadurl: "../../assets/download.png",
-            cell: "",
             token: "",
-            Amout: ""
           })
           var user = firebase.auth().currentUser;
           user.sendEmailVerification().then(function () {
@@ -243,11 +298,6 @@ export class AdimaProvider {
           }).catch(function (error) {
             // An error happened.
           });
-          //   user.verifyPhoneNumberWithCode().then(function () {
-          //   // Email sent.
-          // }).catch(function (error) {
-          //   // An error happened.
-          // });
           resolve();
           loading.dismiss();
         }).catch((error) => {
@@ -337,18 +387,24 @@ export class AdimaProvider {
       firebase.database().ref("Requests/" + user.uid).on('value', (data: any) => {
         let proDetails = data.val();
         console.log(proDetails)
-        let keys2 = Object.keys(proDetails)
-        console.log(keys2)
-        for (var x = 0; x < keys2.length; x++) {
-          let obj = {
-            message: proDetails[keys2[x]].message,
-            user: proDetails[keys2[x]].user,
-            name: proDetails[keys2[x]].name,
-            img: proDetails[keys2[x]].img
+        if (data.val() != null || data.val() != undefined) {
+          let keys2 = Object.keys(proDetails)
+          console.log(keys2)
+          for (var x = 0; x < keys2.length; x++) {
+            let obj = {
+              message: proDetails[keys2[x]].message,
+              user: proDetails[keys2[x]].user,
+              name: proDetails[keys2[x]].name,
+              img: proDetails[keys2[x]].img,
+              key: keys2[x]
+            }
+            console.log(obj)
+            this.getresquestArr.push(obj)
+            console.log(this.getresquestArr)
           }
-          console.log(obj)
-          this.getresquestArr.push(obj)
-          console.log(this.getresquestArr)
+        }
+        else {
+          this.getresquestArr == null
         }
       })
       accept(this.getresquestArr)
@@ -404,11 +460,10 @@ export class AdimaProvider {
 
 
   RemoveUploadedPicture(key) {
-    console.log(key)
-    console.log(user)
-    var user = firebase.auth().currentUser
-    console.log(user.uid)
     return new Promise((accpt, rej) => {
+      var user = firebase.auth().currentUser
+      console.log(key)
+      console.log(user.uid)
       this.ngzone.run(() => {
         firebase.database().ref("Requests/" + user.uid + "/" + key).remove();
         accpt("student deleted");

@@ -37,33 +37,23 @@ export class ProfilePage {
       console.log(this.arr)
     });
 
-    this.dima.retriveRequest().then((data) => {
-      // this.requestArr = data;
-      console.log(this.requestArr)     
-      console.log(data)
 
-
-      let keys1 = Object.keys(data)
-      console.log(keys1)
-      for(var p =0; p < keys1.length; p++){
-        var k = keys1[p];
-       let obj ={
-         name:data[k].name,
-         user:data[k].user
-       }
-       console.log(obj)
-      }
-    })
-
-
-
-
+   
   }
 
-  acceptedReq(user) {
+  callRequest() {
+    this.dima.retriveRequest().then((data: any) => {
+      this.requestArr = data;
+      this.requestArr.reverse();
+      this.requestArr.length=0;
+      console.log(this.requestArr)
+    })
+  }
+
+  acceptedReq(key) {
     for (var x = 0; x < this.requestArr.length; x++) {
-      if (user == this.requestArr[x].user) {
-        this.dima.storeAaccetedRequest(user,name).then((data) => {
+      if (key == this.requestArr[x].key) {
+        this.dima.storeAaccetedRequest(key).then((data) => {
           console.log(data)
         })
         break;
@@ -77,6 +67,8 @@ export class ProfilePage {
       console.log(this.paymentArr)
     })
     console.log('ionViewDidLoad ProfilePage');
+
+    this.callRequest();
   }
 
 
@@ -100,7 +92,7 @@ export class ProfilePage {
           text: 'Delete',
           handler: () => {
             this.dima.RemoveUploadedPicture(key);
-
+            this.callRequest();
           }
         },
         {

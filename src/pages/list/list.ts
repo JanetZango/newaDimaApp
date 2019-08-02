@@ -6,6 +6,7 @@ import { SigninPage } from '../signin/signin';
 import { ProfilePage } from '../profile/profile';
 import { MakepaymentPage } from '../makepayment/makepayment';
 import { DonationPage } from '../donation/donation';
+import { ShowcontactsPage } from '../showcontacts/showcontacts';
 /**
  * Generated class for the ListPage page.
  *
@@ -33,6 +34,7 @@ export class ListPage {
 
     })
   }
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListPage');
@@ -48,5 +50,8 @@ export class ListPage {
   }
   addRequest() {
     this.navCtrl.push(DonationPage)
+  }
+  showcontact(){
+    this.navCtrl.push(ShowcontactsPage)
   }
 }

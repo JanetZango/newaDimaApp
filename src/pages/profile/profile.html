@@ -5,7 +5,7 @@
     </div>
     <div class="condiv">
       <p class="name">{{a.name}}</p>
-      <!-- <p>{{a.email}}</p> -->
+      <p>{{a.email}}</p>
     </div>
 
   </div>
@@ -13,75 +13,81 @@
     <div padding>
       <ion-segment [(ngModel)]="request">
         <ion-segment-button value="inbox" ngSelected="selected">
-          Inbox 
+          Inbox
         </ion-segment-button>
         <ion-segment-button value="associate">
           Payment
         </ion-segment-button>
         <ion-segment-button value="accepted">
           Accepted requests
-          </ion-segment-button>
+        </ion-segment-button>
       </ion-segment>
     </div>
 
 
     <div [ngSwitch]="request">
       <ion-list *ngSwitchCase="'associate'">
-          <div class="conMess">
-              <ion-card *ngFor="let p of paymentArr" class="messDiv">
-                <div class="imgdi2v">
-                  <img src="{{p.downloadurl}}">
-                </div>
-                <div class="condivmess">
-                    Name:<p class="p">{{p.name}}</p>
-                    Payment Amt:<p class="p">{{p.Amount}}</p>
-                </div>
-               
-              </ion-card>
+        <div class="conMess">
+          <ion-card *ngFor="let p of paymentArr" class="messDiv">
+            <div class="imgdi2v">
+              <img src="{{p.downloadurl}}">
             </div>
+            <div class="condivmess">
+              Name:<p class="p">{{p.name}}</p>
+              Payment Amt:<p class="p">{{p.Amount}}</p>
+            </div>
+
+          </ion-card>
+        </div>
       </ion-list>
 
       <ion-list *ngSwitchCase="'inbox'">
+        <div *ngIf="  this.requestArr.length == 0 || this.requestArr.length == undefind">
+          <img src="../../assets/empty.jpg">
+          <div class="undefinedMess">
+            <p>No request avaliable yet...</p>
+          </div>
+        </div>
         <div class="conMess">
-          <ion-card *ngFor="let x of requestArr;let p = index" class="messDiv">
+          <ion-card *ngFor="let x of requestArr;let index = p" class="messDiv">
             <div class="imgdi2v">
-                <img src="{{x.img}}">
+              <img src="{{x.img}}">
             </div>
             <div class="condivmess">
-                <p class="p">{{x.name}}</p>
-                <p class="p">{{x.message}}</p>
-                <button ion-button (click)="acceptedReq(x.user)">Accept</button>
-                <button ion-button (click)="removeImage(x.user)">Reject</button>
+              <p class="p">{{x.name}}</p>
+              <p class="p">{{x.message}}</p>
+              <button ion-button (click)="acceptedReq(x.key)">Accept</button>
+              <button ion-button (click)="removeImage(x.key)">Reject</button>
             </div>
-          
+
           </ion-card>
         </div>
       </ion-list>
 
 
       <ion-list *ngSwitchCase="'accepted'">
-          <div class="conMess">
-            <ion-card *ngFor="let x of requestArr" class="messDiv">
-              <div class="imgdi2v">
-                  <img src="{{x.img}}">
-              </div>
-              <div class="condivmess">
-                  <p class="p">{{x.name}}</p>
-                  <p class="p">{{x.message}}</p>
-                  <button ion-button>Accept</button>
-                  <button ion-button>Reject</button>
-              </div>
-            
-            </ion-card>
-          </div>
-        </ion-list>
+        <div class="conMess">
+          <ion-card *ngFor="let x of requestArr" class="messDiv">
+            <div class="imgdi2v">
+              <img src="{{x.img}}">
+            </div>
+            <div class="condivmess">
+              <p class="p">{{x.name}}</p>
+              <p class="p">{{x.message}}</p>
+              <button ion-button>Accept</button>
+              <button ion-button>Reject</button>
+            </div>
+
+          </ion-card>
+        </div>
+      </ion-list>
     </div>
 
 
     <ion-fab top right (click)="logOut()">
       <button ion-fab mini>
         <ion-icon ios="ios-lock" md="md-lock"></ion-icon>
-              
+
       </button>
     </ion-fab>
   </div>

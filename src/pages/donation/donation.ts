@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AdimaProvider } from '../../providers/adima/adima';
+import { ToastController } from 'ionic-angular';
 /**
  * Generated class for the DonationPage page.
  *
@@ -23,7 +24,8 @@ export class DonationPage {
   user;
   name;
   addrequestArr = new Array();
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider) {
+  fundingArr = new Array();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dima: AdimaProvider,public toastCtrl: ToastController) {
     this.dima.getCurrentLoggedinPerson().then((data:any) => {
       console.log(data)
       this.addrequestArr =data
@@ -63,6 +65,13 @@ export class DonationPage {
    addRequest(){
      this.dima.addRequestFunding(this.key,this.Amount,this.purpose,this.PO_no,this.downloadurl,this.name).then((data)=>{
      console.log(data)
+     this.fundingArr.push(data)
+     const toast = this.toastCtrl.create({
+      message: 'You have succesfully added a funding Request!',
+      duration: 3000
+    });
+    toast.present();
+    this.navCtrl.pop();
      })
    }
 

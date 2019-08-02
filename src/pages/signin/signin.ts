@@ -6,6 +6,7 @@ import { AlertController } from "ionic-angular";
 import { HomePage } from '../home/home';
 import { ListPage } from '../list/list';
 import SignupPage from '../signup/signup';
+import { ChoosePage } from '../choose/choose';
 
 declare var firebase;
 /**
@@ -31,12 +32,17 @@ password;
   }
 
   gotoRegister(){
-    this.navCtrl.push(SignupPage)
+    this.navCtrl.push(ChoosePage)
   }
 
   SignIn(email: string, password: string) {
     if(email == "" || password== "" || email == null || password == null  ){
-      console.log('error')
+      const alert = this.alertCtrl.create({
+        cssClass: "myAlert",
+        subTitle: "Please enter your details in order to log in",
+        buttons: ['OK'],
+      });
+      alert.present();
     }
     else{
       console.log(email, password)
